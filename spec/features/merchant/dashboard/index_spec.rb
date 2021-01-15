@@ -91,7 +91,7 @@ RSpec.describe 'merchant dashboard' do
   end
   it "can see a section for Items Ready to Ship with list of names of items ordered and ids" do
     within("#items_ready_to_ship") do
-      
+
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content(@item_1.invoice_ids)
 
@@ -114,5 +114,14 @@ RSpec.describe 'merchant dashboard' do
 
   it "shows the date that the invoice was created in this format: Monday, July 18, 2019" do
     expect(page).to have_content(@invoice_1.created_at.strftime("%A, %B %-d, %Y"))
+  end
+
+  it 'shows a link to view all discounts for that merchant' do
+    expect(page).to have_link("View My Discounts")
+  end
+
+  it 'takes me to the bulk discount index page when I click the link' do
+    click_link "View My Discounts"
+    expect(current_path).to eq("/merchant/#{@merchant1.id}/bulk_discounts")
   end
 end
