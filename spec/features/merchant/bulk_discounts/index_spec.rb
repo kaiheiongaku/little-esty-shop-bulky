@@ -14,12 +14,12 @@ RSpec.describe 'bulk discounts index page' do
     @bulk_discount2 = BulkDiscount.create!(quantity_threshold: 8, merchant_id: @merchant1.id, percentage_off: 0.15)
     @bulk_discount3 = BulkDiscount.create!(quantity_threshold: 10, merchant_id: @merchant1.id, percentage_off: 0.25)
     @bulk_discount4 = BulkDiscount.create!(quantity_threshold: 5, merchant_id: @merchant2.id, percentage_off: 0.13)
+
+    visit merchant_bulk_discounts_path(@merchant1)
   end
 
   describe "when I visit the index page" do
     it 'shows all bulk discounts for a merchant' do
-
-      visit merchant_bulk_discounts_path(@merchant1)
 
       within("#bd-#{@bulk_discount1.id}") do
         expect(page).to have_content(@bulk_discount1.quantity_threshold)
@@ -39,16 +39,12 @@ RSpec.describe 'bulk discounts index page' do
 
     it 'includes links to the individual discount page' do
 
-      visit merchant_bulk_discounts_path(@merchant1)
-
       expect(page).to have_link("Bulk Discount # 1")
       expect(page).to have_link("Bulk Discount # 2")
       expect(page).to have_link("Bulk Discount # 3")
     end
 
     it 'has a link to create a new bulk discount for that merchant' do
-
-      visit merchant_bulk_discounts_path(@merchant1)
 
       expect(page).to have_link("New Discount")
 
@@ -68,6 +64,31 @@ RSpec.describe 'bulk discounts index page' do
 
       expect(page).to have_content(33)
       expect(page).to have_content(0.33)
+    end
+
+    it 'has a delete link next to each bulk discount' do
+      within("#bd-#{@bulk_discount1.id}") do
+        expect(page).to have_link("Delete")
+      end
+
+      within("#bd-#{@bulk_discount2.id}") do
+        expect(page).to have_link("Delete")
+      end
+
+      within("#bd-#{@bulk_discount3.id}") do
+        expect(page).to have_link("Delete")
+      end
+    end
+
+    it 'can delete a bulk discount' do
+      within("#bd-#{@bulk_discount3.id}") do
+        click_on "Delete"
+      end
+
+      expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1))
+      expect(page).not_to have_content("Bulk Discount # 3")
+      expect(page).not_to have_content(@bulk_discount3.quantity_threshold)
+      expect(page).not_to have_content(@bulk_discount3.percentage_off)
     end
   end
 end
