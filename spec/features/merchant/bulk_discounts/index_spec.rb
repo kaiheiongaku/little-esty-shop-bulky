@@ -56,5 +56,9 @@ RSpec.describe 'bulk discounts index page' do
 
       expect(current_path).to eq("/merchant/#{@merchant1.id}/bulk_discounts/new")
     end
+
+    it 'shows the new bulk discount after the creation' do
+      xxx
+    end
   end
 end
