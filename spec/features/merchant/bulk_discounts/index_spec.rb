@@ -19,7 +19,7 @@ RSpec.describe 'bulk discounts index page' do
   describe "when I visit the index page" do
     it 'shows all bulk discounts for a merchant' do
 
-      visit "/merchant/#{@merchant1.id}/bulk_discounts"
+      visit merchant_bulk_discounts_path(@merchant1)
 
       within("#bd-#{@bulk_discount1.id}") do
         expect(page).to have_content(@bulk_discount1.quantity_threshold)
@@ -39,7 +39,7 @@ RSpec.describe 'bulk discounts index page' do
 
     it 'includes links to the individual discount page' do
 
-      visit "/merchant/#{@merchant1.id}/bulk_discounts"
+      visit merchant_bulk_discounts_path(@merchant1)
 
       expect(page).to have_link("Bulk Discount # 1")
       expect(page).to have_link("Bulk Discount # 2")
@@ -48,7 +48,7 @@ RSpec.describe 'bulk discounts index page' do
 
     it 'has a link to create a new bulk discount for that merchant' do
 
-      visit "/merchant/#{@merchant1.id}/bulk_discounts"
+      visit merchant_bulk_discounts_path(@merchant1)
 
       expect(page).to have_link("New Discount")
 
@@ -58,7 +58,16 @@ RSpec.describe 'bulk discounts index page' do
     end
 
     it 'shows the new bulk discount after the creation' do
-      xxx
+
+      visit new_merchant_bulk_discount_path(@merchant1)
+
+      fill_in :quantity_threshold, with: 33
+      fill_in :percentage_off, with: 0.33
+
+      click_on "Create Discount"
+
+      expect(page).to have_content(33)
+      expect(page).to have_content(0.33)
     end
   end
 end
