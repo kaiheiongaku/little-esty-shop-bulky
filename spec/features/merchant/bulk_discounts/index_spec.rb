@@ -21,27 +21,26 @@ RSpec.describe 'bulk discounts index page' do
 
       visit "/merchant/#{@merchant1.id}/bulk_discounts"
 
-      within("bd-#{@bulk_discount1.id}") do
+      within("#bd-#{@bulk_discount1.id}") do
         expect(page).to have_content(@bulk_discount1.quantity_threshold)
         expect(page).to have_content(@bulk_discount1.percentage_off)
       end
 
-      within("bd-#{@bulk_discount2.id}") do
+      within("#bd-#{@bulk_discount2.id}") do
         expect(page).to have_content(@bulk_discount2.quantity_threshold)
         expect(page).to have_content(@bulk_discount2.percentage_off)
       end
 
-      within("bd-#{@bulk_discount3.id}") do
+      within("#bd-#{@bulk_discount3.id}") do
         expect(page).to have_content(@bulk_discount3.quantity_threshold)
         expect(page).to have_content(@bulk_discount3.percentage_off)
       end
-
-      expect(page).not_to have_section("bd-#{@bulk_discount3.id}")
     end
 
     it 'includes links to the individual discount page' do
 
       visit "/merchant/#{@merchant1.id}/bulk_discounts"
+
       expect(page).to have_link("Bulk Discount # 1")
       expect(page).to have_link("Bulk Discount # 2")
       expect(page).to have_link("Bulk Discount # 3")
