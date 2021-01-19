@@ -4,7 +4,7 @@ RSpec.describe 'bulk discount edit page' do
   before :each do
     @merchant1 = Merchant.create!(name: 'Hair Care')
 
-    @bulk_discount1 = BulkDiscount.create!(quantity_threshold: 5, merchant_id: @merchant1.id, percentage_off: 0.10)
+    @bulk_discount1 = BulkDiscount.create!(quantity_threshold: 5, merchant_id: @merchant1.id, percentage_off: 0.12)
 
     visit edit_merchant_bulk_discount_path(@merchant1, @bulk_discount1)
   end
@@ -17,8 +17,8 @@ RSpec.describe 'bulk discount edit page' do
     end
 
     it 'has the fields prepopulated with the current data from the discount' do
-      expect(page).to have_content(@bulk_discount1.percentage_off)
-      expect(page).to have_content(@bulk_discount1.quantity_threshold)
+      expect(page).to have_field(:percentage_off, :with => @bulk_discount1.percentage_off)
+      expect(page).to have_field(:quantity_threshold, :with => @bulk_discount1.quantity_threshold)
     end
 
     it 'redirects to the show page after successful update' do
@@ -58,7 +58,7 @@ RSpec.describe 'bulk discount edit page' do
 
         click_on "Update Discount"
 
-        expect(page).to have_content("Percentage off must not be blank")
+        expect(page).to have_content("Percentage off can't be blank")
       end
     end
   end
