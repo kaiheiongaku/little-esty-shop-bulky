@@ -31,7 +31,19 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def edit
+    @merchant = Merchant.find(params[:merchant_id])
     @discount = BulkDiscount.find(params[:id])
+  end
+
+  def update
+    @merchant = Merchant.find(params[:merchant_id])
+    @discount = BulkDiscount.find(params[:id])
+    if @discount.update(discount_params)
+      redirect_to merchant_bulk_discount_path(@merchant, @discount)
+    else
+      flash[:notice] = @discount.errors.full_messages.to_sentence
+      render :edit
+    end
   end
 
   private
