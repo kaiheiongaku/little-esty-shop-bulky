@@ -1,4 +1,5 @@
 class Merchant::BulkDiscountsController < ApplicationController
+  #do the before thing
   def index
     @merchant = Merchant.find(params[:merchant_id])
   end
