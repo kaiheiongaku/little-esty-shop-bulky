@@ -9,6 +9,7 @@ class Merchant::BulkDiscountsController < ApplicationController
   end
 
   def show
+    @merchant = Merchant.find(params[:merchant_id])
     @bulk_discount = BulkDiscount.find(params[:id])
   end
 
@@ -27,6 +28,10 @@ class Merchant::BulkDiscountsController < ApplicationController
       flash[:notice] = @discount.errors.full_messages.to_sentence
       render :new
     end
+  end
+
+  def edit
+    @discount = BulkDiscount.find(params[:id])
   end
 
   private
