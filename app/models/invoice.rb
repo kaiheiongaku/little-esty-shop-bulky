@@ -20,5 +20,6 @@ class Invoice < ApplicationRecord
       discount = ii.maximum_discount
       base = (ii.unit_price * ii.quantity)
       base - (base * discount)
+    end
   end
 end
