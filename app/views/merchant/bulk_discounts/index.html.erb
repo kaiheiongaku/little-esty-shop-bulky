@@ -6,6 +6,7 @@
     <h2><%= link_to "Bulk Discount # #{ discount_counter }", merchant_bulk_discounts_path %></h2>
     <h3><%= discount.quantity_threshold %></h3>
     <h3><%= discount.percentage_off %></h3>
+    <h4><%= link_to "Delete This Discount", "/merchant/#{@merchant.id}/bulk_discounts/#{discount.id}", method: :delete %></h4>
       <% discount_counter += 1 %>
     </section>
 <% end %>
