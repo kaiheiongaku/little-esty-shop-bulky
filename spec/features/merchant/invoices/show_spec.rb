@@ -51,6 +51,9 @@ RSpec.describe 'invoices show' do
     @transaction6 = Transaction.create!(credit_card_number: 879799, result: 0, invoice_id: @invoice_6.id)
     @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_7.id)
     @transaction8 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_8.id)
+
+    @bd1 = BulkDiscount.create!(merchant_id: @merchant1.id, quantity_threshold: 5, percentage_off: 0.1)
+    @bd2 = BulkDiscount.create!(merchant_id: @merchant1.id, quantity_threshold: 10, percentage_off: 0.2)
   end
 
   it "shows the invoice information" do
