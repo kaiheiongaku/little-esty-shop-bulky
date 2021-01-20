@@ -87,7 +87,7 @@ RSpec.describe 'invoices show' do
 
   it "shows a select field to update the invoice status" do
     visit merchant_invoice_path(@merchant1, @invoice_1)
-    
+
     within("#the-status-#{@ii_1.id}") do
       page.select("cancelled")
       click_button "Update Invoice"
@@ -96,4 +96,9 @@ RSpec.describe 'invoices show' do
      end
   end
 
+  it 'shows the total discounted revenue' do
+    visit merchant_invoice_path(@merchant1, @invoice_1)
+
+    expect(page).to have_content(@invoice_1.discounted_total_revenue)
+  end
 end
