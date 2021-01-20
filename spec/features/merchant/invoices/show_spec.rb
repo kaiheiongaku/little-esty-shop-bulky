@@ -104,4 +104,10 @@ RSpec.describe 'invoices show' do
 
     expect(page).to have_content(@invoice_1.discounted_total_revenue)
   end
+
+  it 'shows a link to a discount (if applicable) for each invoice item' do
+    visit merchant_invoice_path(@merchant1, @invoice_1)
+    save_and_open_page
+
+  end
 end
