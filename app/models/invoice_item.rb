@@ -18,7 +18,9 @@ class InvoiceItem < ApplicationRecord
   end
 
   def maximum_discount
-     BulkDiscount.where('quantity_threshold <= ?', self.quantity).where('merchant_id = ?', self.invoice.merchant_id).pluck(:percentage_off).max
+     # BulkDiscount.where('quantity_threshold <= ?', self.quantity).where('merchant_id = ?', self.invoice.merchant_id).pluck(:percentage_off).max
+     #binding.pry
+     BulkDiscount.where('quantity_threshold <= ?', self.quantity).where('merchant_id = ?', self.invoice.merchant_id).select('bulk_discounts.*, max(:percentage_off)').pluck(:percentage_off).last
   end
 
   def find_discount_by_percent
