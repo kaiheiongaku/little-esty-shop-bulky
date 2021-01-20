@@ -42,6 +42,10 @@ RSpec.describe InvoiceItem, type: :model do
 
         expect(@ii_11.maximum_discount).to eq(0.2)
       end
+
+      it 'can find the discount id through the percentage' do
+        expect(@ii_11.find_discount_id_by_percent).to eq(@bd2.id)
+      end
     end
   end
 end

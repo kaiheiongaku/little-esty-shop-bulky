@@ -23,4 +23,10 @@ class InvoiceItem < ApplicationRecord
                 .pluck(:percentage_off)
                 .max
   end
+
+  def find_discount_id_by_percent
+    merchant_id = self.invoice.merchant_id
+    percent = self.maximum_discount
+    BulkDiscount.find_by_percent(merchant_id, percent).id
+  end
 end
