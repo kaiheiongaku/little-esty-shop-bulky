@@ -23,6 +23,5 @@ RSpec.describe BulkDiscount, type: :model do
 
       expect(BulkDiscount.find_by_percent(@merchant1.id, 0.2)).to eq(@bd2)
     end
-
   end
 end

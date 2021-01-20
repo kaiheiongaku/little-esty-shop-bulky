@@ -24,9 +24,9 @@ class InvoiceItem < ApplicationRecord
                 .max
   end
 
-  def find_discount_id_by_percent
+  def find_discount_by_percent
     merchant_id = self.invoice.merchant_id
     percent = self.maximum_discount
-    BulkDiscount.find_by_percent(merchant_id, percent).id
+    BulkDiscount.find_by_percent(merchant_id, percent)
   end
 end
