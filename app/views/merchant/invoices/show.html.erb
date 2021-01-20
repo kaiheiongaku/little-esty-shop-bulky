@@ -43,8 +43,8 @@
           <tr class="tr">
             <td style="text-align:center"><%= i.item.name %></td>
             <td style="text-align:center"><%= i.quantity %></td>
-            <td style="text-align:center"><%= number_to_currency(i.unit_price) %>
-            <td style="text-align:center"><%=  %></td>
+            <td style="text-align:center"><%= number_to_currency(i.unit_price) %>   (<%= link_to "#{i.maximum_discount.round(2)}", merchant_bulk_discount_path(@merchant, i.find_discount_id_by_percent) %>)
+            </td>
             <td style="text-align:center"><%= form_with model: @invoice, url: merchant_invoice_path(@merchant, @invoice), method: :patch do |f| %>
                                             <%= f.select :status, Invoice.statuses.keys, selected: "#{@invoice.status}" %>
                                             <%= f.submit 'Update Invoice' %>
